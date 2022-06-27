@@ -12,7 +12,7 @@ import (
 	"strings"
 
 	"github.com/imroc/req"
-	"github.com/qiniu/log"
+	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 )
 
@@ -71,10 +71,7 @@ func githubUpdate(skipConfirm bool) error {
 	// if err != nil {
 	// 	return err
 	// }
-	cleanVersion := tag.Version
-	if strings.HasPrefix(cleanVersion, "v") {
-		cleanVersion = cleanVersion[1:]
-	}
+	cleanVersion := strings.TrimPrefix(tag.Version, "v")
 	osArch := runtime.GOOS + "_" + runtime.GOARCH
 
 	downloadURL := StringFormat("https://github.com/{repo}/{name}/releases/download/{tag}/{name}_{version}_{os_arch}.tar.gz", map[string]interface{}{
@@ -127,7 +124,7 @@ func main() {
 		return nil
 	}
 	app.Authors = []cli.Author{
-		cli.Author{
+		{
 			Name:  "codeskyblue",
 			Email: "codeskyblue@gmail.com",
 		},

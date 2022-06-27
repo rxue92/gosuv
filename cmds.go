@@ -121,7 +121,7 @@ func actionStatus(c *cli.Context) error {
 }
 
 // cmd: <start|stop>
-func programOperate(cmd, name string) (err error, success bool) {
+func programOperate(cmd, name string) (success bool, err error) {
 	// res, err := goreq.Request{
 	// 	Method: "POST",
 	// 	Uri:    cfg.Client.ServerURL + "/api/programs/" + name + "/" + cmd,
@@ -146,7 +146,7 @@ func programOperate(cmd, name string) (err error, success bool) {
 
 func actionStart(c *cli.Context) (err error) {
 	name := c.Args().First()
-	err, success := programOperate("start", name)
+	success, err := programOperate("start", name)
 	if err != nil {
 		return
 	}
@@ -160,7 +160,7 @@ func actionStart(c *cli.Context) (err error) {
 
 func actionStop(c *cli.Context) (err error) {
 	name := c.Args().First()
-	err, success := programOperate("stop", name)
+	success, err := programOperate("stop", name)
 	if err != nil {
 		return
 	}

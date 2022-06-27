@@ -18,12 +18,13 @@ import (
 	"syscall"
 	"time"
 
+	"gosuv/gops"
+
 	"github.com/go-yaml/yaml"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
-	"github.com/qiniu/log"
 	_ "github.com/shurcooL/vfsgen"
-	"github.com/soopsio/gosuv/gops"
+	log "github.com/sirupsen/logrus"
 	"github.com/soopsio/kexec"
 )
 
@@ -94,12 +95,12 @@ func (s *Supervisor) addStatusChangeListener(c chan string) {
 func (s *Supervisor) stopAndWait(name string) error {
 	p, ok := s.procMap[name]
 	if !ok {
-		return errors.New("No such program")
+		return errors.New("no such program")
 	}
 	if !p.IsRunning() {
 		return nil
 	}
-	c := make(chan string, 0)
+	c := make(chan string)
 	s.addStatusChangeListener(c)
 	// p.stopCommand()
 	// 停止任务
@@ -167,7 +168,7 @@ func (s *Supervisor) readConfigFromDB() (pgs []Program, err error) {
 	visited := map[string]bool{}
 	for _, pg := range pgs {
 		if visited[pg.Name] {
-			return nil, fmt.Errorf("Duplicated program name: %s", pg.Name)
+			return nil, fmt.Errorf("duplicated program name: %s", pg.Name)
 		}
 		visited[pg.Name] = true
 	}
@@ -521,10 +522,10 @@ func (s *Supervisor) wsEvents(w http.ResponseWriter, r *http.Request) {
 	}
 	defer c.Close()
 
-	ch := make(chan string, 0)
+	ch := make(chan string)
 	s.addStatusChangeListener(ch)
 	go func() {
-		_, _ = <-ch // ignore the history messages
+		<-ch // ignore the history messages
 		for message := range ch {
 			// Question: type 1 ?
 			c.WriteMessage(1, []byte(message))
@@ -650,8 +651,8 @@ func (s *Supervisor) AutoStartPrograms() {
 func newSupervisorHandler() (suv *Supervisor, hdlr http.Handler, err error) {
 	suv = &Supervisor{
 		ConfigDir: filepath.Join(defaultGosuvDir, "conf"),
-		pgMap:     make(map[string]Program, 0),
-		procMap:   make(map[string]*Process, 0),
+		pgMap:     make(map[string]Program),
+		procMap:   make(map[string]*Process),
 		eventB:    NewWriteBroadcaster(4 * 1024),
 	}
 	if err = suv.loadDB(); err != nil {
