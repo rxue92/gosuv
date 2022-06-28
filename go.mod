@@ -27,4 +27,5 @@ require (
 	github.com/smartystreets/goconvey v1.7.2
 	github.com/soopsio/kexec v0.0.0-20160908020525-863094f94c7f
 	github.com/urfave/cli v1.22.9
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )
