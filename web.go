@@ -23,8 +23,8 @@ import (
 	"github.com/go-yaml/yaml"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
-	log "github.com/sirupsen/logrus"
 	_ "github.com/shurcooL/vfsgen"
+	log "github.com/sirupsen/logrus"
 )
 
 var defaultConfigDir string

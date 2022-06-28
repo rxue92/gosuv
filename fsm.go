@@ -237,7 +237,7 @@ func (p *Process) buildCommand() *kexec.KCommand {
 	// p.OutputFile = NewRotate(filepath.Join(logDir, "output.log"))
 	p.OutputFile = &lumberjack.Logger{
 		Filename:   filepath.Join(logDir, "output.log"),
-		MaxSize:    1024,
+		MaxSize:    50,
 		MaxAge:     14,
 		MaxBackups: 14,
 		Compress:   false,

@@ -17,7 +17,7 @@ import (
 const appID = "app_8Gji4eEAdDx"
 
 var (
-	version   string = "master"
+	version   string = "0.1.2"
 	publicKey        = []byte(`
 -----BEGIN ECDSA PUBLIC KEY-----
 MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAEY8xsSkcFs8XXUicw3n7E77qN/vqKUQ/6
@@ -106,7 +106,7 @@ func main() {
 		return nil
 	}
 	app.Authors = []cli.Author{
-		cli.Author{
+		{
 			Name:  "codeskyblue",
 			Email: "codeskyblue@gmail.com",
 		},
