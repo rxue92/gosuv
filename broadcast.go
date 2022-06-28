@@ -6,8 +6,9 @@ import (
 	"sync"
 	"time"
 
+	log "github.com/sirupsen/logrus"
+
 	"github.com/glycerine/rbuf"
-	"github.com/qiniu/log"
 )
 
 // The new broadcast

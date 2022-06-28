@@ -16,7 +16,9 @@ type Configuration struct {
 			Password string `yaml:"password"`
 		} `yaml:"httpauth"`
 		Addr string `yaml:"addr"`
+		Name string `yaml:"name"`
 	} `yaml:"server"`
+	Notifications Notifications `yaml:"notifications,omitempty" json:"-"`
 
 	Client struct {
 		ServerURL string `yaml:"server_url"`

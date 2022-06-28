@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/equinox-io/equinox"
-	"github.com/qiniu/log"
+	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 )
 
